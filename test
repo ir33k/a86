@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Build and run tests
+set -ex # Stop on first error and log all commands
+cc -Wall -Wextra -Wshadow -Wmissing-declarations -Wswitch-enum -pedantic -std=c89 -o a86.t a86.t.c && ./a86.t

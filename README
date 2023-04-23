@@ -1,0 +1,10 @@
+Decode Intel 8086 16-bit microprocessor binary instructions.
+Only few instructions are implemented, for fun  (^_^ )
+
+Test, build and run
+
+	$ ./test        # Build and run tests
+	$ ./build       # Build main a86 program
+
+	$ ./a86 input   # Decode "input" file
+	$ <input ./a86  # Decode from stdin

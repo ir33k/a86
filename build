@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Build main program
+set -ex # Stop on first error and log all commands
+cc -Wall -Wextra -Wshadow -Wmissing-declarations -Wswitch-enum -pedantic -std=c89 -o a86 a86.c
