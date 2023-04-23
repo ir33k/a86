@@ -9,7 +9,8 @@ enum a86_err {			/* Error codes */
 	A86_ERR_WIP,		/* Parsing in progress */
 	A86_ERR_TODO,		/* Instruction not yet implemented */
 	A86_ERR_WHAT,		/* Unknown instruction */
-	A86_ERR_MISS		/* Missing byte */
+	A86_ERR_MISS,		/* Missing byte */
+	A86_ERR__SIZ		/* For a86__err array size */
 };
 enum a86_opc {			/* Instruction operation code */
 	A86_OPC_NUL = 0,	/* Unknown */
@@ -71,6 +72,15 @@ const enum a86_reg a86__reg[3][8] = {
 /* Segment register code map. */
 const enum a86_sr a86__sr[4] = {A86_SR_ES, A86_SR_CS, A86_SR_SS, A86_SR_DS};
 
+/* Error messages map. */
+const char *a86__err[A86_ERR__SIZ] = {
+	"INFO: Success, no errors\n",
+	"WARN: Parsing in progress\n",
+	"ERROR: Unknown instruction\n",
+	"ERROR: Not implemented\n",
+	"ERROR: Missing byte\n"
+};
+
 /* Map instruction operation code to string. */
 const char *a86__opc_str[A86_OPC__SIZ] = {"", "mov", "push", "pop"};
 
@@ -111,14 +121,7 @@ enum a86_err a86_trans(FILE *in, FILE *out);
 void
 a86_fperror(FILE *fp, enum a86_err err)
 {
-	char *fmt = "ERROR: %s\n";
-	switch (err) {
-	case A86_ERR_OK:   fprintf(fp, fmt, "Success, no errors"); break;
-	case A86_ERR_WIP:  fprintf(fp, fmt, "Parsing in progress"); break;
-	case A86_ERR_WHAT: fprintf(fp, fmt, "Unknown instruction"); break;
-	case A86_ERR_TODO: fprintf(fp, fmt, "Not implemented"); break;
-	case A86_ERR_MISS: fprintf(fp, fmt, "Missing byte"); break;
-	}
+	fputs(a86__err[err], fp);
 }
 
 int
